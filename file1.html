@@ -1,7 +1,53 @@
 <!DOCTYPE html> 
 <html>
-    <head>" File 1 "</head> 
+    <head> 
+    <title> File 1 </title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head> 
+
     <body>  
-        <h1>File 1</h1>  
+        <h1>File 1</h1> 
+        <div id="output"> </div>
+        <script>
+            //Using Promises
+            // axios.get("https://jsonplaceholder.typicode.com/posts")
+            // .then((response) =>{
+            //     const outputdata=response.data;
+            //     const outputdiv=document.getElementById("output");
+            //     outputdiv.innerHTML=outputdata.map((post) =>
+            //      {
+            //         if(post.id<=5)
+            //         return `Post ${post.id} : ${post.title} <br> `;
+            //      }
+            //     ).join("");
+
+            //      })
+            // .catch((error)=>{console.log(error)});
+
+
+            //Using async await
+            //async makes a function return a Promise.
+            //await pauses the function until the Promise resolves (or rejects).
+            
+            async function getPosts(){
+                try{
+                    const response= await(axios.get("https://jsonplaceholder.typicode.com/posts"));
+                    const outputdata=response.data;
+                    const outputdiv=document.getElementById("output");
+                    outputdiv.innerHTML=
+                    outputdata
+                    .filter((post)=>post.id<=5)
+                    .map((post)=>{
+                        return `Post ${post.id} : ${post.title} <br> `; 
+                    })
+                    .join("");
+
+                }catch(error){
+                    console.log(error);
+                }
+            }
+
+            getPosts();
+        </script> 
     </body> 
 </html>
